@@ -2,6 +2,7 @@ const path = require('path')
 
 const Koa = require('koa')
 const { koaBody } = require('koa-body')
+const cors = require('koa-cors');   // 解决跨域
 
 const KoaStatic = require('koa-static')
 const errHandler = require('./errHandler')
@@ -18,6 +19,7 @@ app.use(koaBody({
     },
     parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE']
 }))
+app.use(cors());
 app.use(parameter(app))
 app.use(KoaStatic(path.join(__dirname, '../upload')))
 app.use(router.routes()).use(router.allowedMethods())
